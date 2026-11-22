@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Media Downloader</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="wrap">
+<nav><a class="brand" href="/">Media<span>Downloader</span></a><a class="navbtn" href="/admin">Admin</a></nav>
+<section class="hero">
+<div class="tag">SIMPLE · PRIVATE · FAST</div>
+<h1>Download videos<br><span>made simple.</span></h1>
+<p>Paste a direct video file link to get started.</p>
+<form class="download-form" action="/download" method="post">
+<input name="url" type="url" required placeholder="Paste a direct MP4 / WebM link…" aria-label="Video URL">
+<button type="submit">Download <span>↗</span></button>
+</form>
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+<div class="hint">This starter supports direct video-file links only. Social-media API adapters can be added later.</div>
+</section>
+<section class="platform-section"><h2>Platforms</h2><p class="muted">API connectors can be configured in Admin; adapters are not yet connected.</p>
+<div class="platforms">
+<div class="platform"><span>f</span><b>Facebook</b></div><div class="platform"><span>◎</span><b>Instagram</b></div><div class="platform"><span>♪</span><b>TikTok</b></div><div class="platform"><span>▶</span><b>YouTube</b></div><div class="platform"><span>𝕏</span><b>X / Twitter</b></div>
+</div></section>
+<section class="how"><h2>Three easy steps</h2><div class="steps"><article><i>01</i><h3>Copy a link</h3><p>Copy a direct video-file URL you are allowed to save.</p></article><article><i>02</i><h3>Paste it</h3><p>Enter the link in the box above.</p></article><article><i>03</i><h3>Download</h3><p>Get the direct file when the source allows access.</p></article></div></section>
+<footer>Made with <span>♥</span> · Media Downloader</footer>
+</div>
+</body></html>

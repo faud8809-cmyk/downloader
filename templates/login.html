@@ -1,0 +1,4 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Login</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body>
+<div class="wrap"><nav><a class="brand" href="/">Media<span>Downloader</span></a></nav><section class="adminbox"><div class="tag">ADMIN ACCESS</div><h1>Sign in</h1><p class="muted">Use the local admin password configured for this app.</p>
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+<form action="/admin/login" method="post" class="adminform"><input type="hidden" name="_csrf" value="{{ csrf_token() }}"><label>Password</label><input type="password" name="password" required placeholder="Admin password"><button>Login</button></form><p class="smallnote">Default password is <code>change-this-password</code>. Set a custom password before use.</p></section></div></body></html>

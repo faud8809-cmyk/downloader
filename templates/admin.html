@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>API Settings</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body>
+<div class="wrap"><nav><a class="brand" href="/">Media<span>Downloader</span></a><form action="/admin/logout" method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}"><button class="navbtn">Logout</button></form></nav>
+<section class="adminhead"><div class="tag">CONTROL PANEL</div><h1>API settings</h1><p class="muted">Save API credentials here. This project includes the settings UI and secure storage scaffold; API-specific adapter code must be added to connect each provider.</p></section>
+{% with messages=get_flashed_messages(with_categories=true) %}{% for category,msg in messages %}<div class="alert {{ category }}">{{ msg }}</div>{% endfor %}{% endwith %}
+<section class="adminbox"><h2>Add / update API</h2>
+<form action="/admin/provider/save" method="post" class="adminform">
+<input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+<input type="hidden" name="provider_id" value="">
+<label>API Name</label><input name="name" required placeholder="Example: My Downloader API">
+<label>Platform</label><select name="platform"><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>YouTube</option><option>X / Twitter</option><option>Custom</option></select>
+<label>API Endpoint URL</label><input name="api_url" type="url" placeholder="https://api.example.com/endpoint">
+<label>API Key / Token</label><input name="api_key" type="password" placeholder="Paste API key (stored locally)">
+<label class="check"><input type="checkbox" name="enabled"> Enable this entry</label>
+<button type="submit">Save API</button>
+</form></section>
+{% if providers %}<h2 class="listtitle">Saved API entries</h2>{% for p in providers %}<article class="api-card"><div class="api-top"><div><h3>{{ p.name }}</h3><p class="muted">{{ p.platform }} · {% if p.enabled %}<span class="on">Enabled</span>{% else %}<span class="off">Disabled</span>{% endif %}</p></div><form action="/admin/provider/delete" method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}"><input type="hidden" name="provider_id" value="{{ p.id }}"><button class="danger">Delete</button></form></div><p class="endpoint">{{ p.api_url or 'Endpoint not set' }}</p><p class="smallnote">Key stored: {% if p.api_key %}Yes (hidden){% else %}No{% endif %}</p></article>{% endfor %}{% endif %}
+<div class="alert info">Reminder: Saving an API entry does not automatically call it. Providers use different request formats, authentication headers, and response structures; add a provider-specific adapter after checking its official documentation.</div>
+</div></body></html>
